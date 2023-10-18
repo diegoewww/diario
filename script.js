@@ -118,7 +118,46 @@ const totalMarks = students.map(student =>{
 }).filter(student => student.marks >60)
   .reduce((acc,student)=> acc + student.marks,0)
 
-// pREPARACION PARA FAANG AHORA!
+// PREPARACION PARA FAANG AHORA!
+
+// Palindrome
+
+const isPalindrome = function (x) {
+  if(x<0) return false
+  return x === Number(x.toString().split("").reverse().join(""));
+};
+
+// Fibonacci 1
+
+const fibonacci = function (num) {
+  let arr = [0,1]
+  for(let i = 2; i <= num; i++){
+    arr.push(arr[i-1] + arr[i-2])
+  }
+  return arr[num]
+}
+
+// Fibonacci 2
+
+const fibonacciRecursive = function (num) {
+  if(num <= 1) return num
+
+  return fibonacciRecursive(num-1) + fibonacciRecursive(num-2)
+}
+
+// Valid Anagram
+
+const isAnagram = function (s,t) {
+  s = s.split("").sort().join("")
+  t= s.split("").sort().join("")
+  
+  return s === t
+}
+
+console.log(isAnagram("roca","cora"))
+
+
+
 
 
 
