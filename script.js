@@ -127,7 +127,7 @@ const isPalindrome = function (x) {
   return x === Number(x.toString().split("").reverse().join(""));
 };
 
-// Fibonacci 1
+// Fibonacci 
 
 const fibonacci = function (num) {
   let arr = [0,1]
@@ -137,7 +137,7 @@ const fibonacci = function (num) {
   return arr[num]
 }
 
-// Fibonacci 2
+// Fibonacci  recursive
 
 const fibonacciRecursive = function (num) {
   if(num <= 1) return num
@@ -145,7 +145,7 @@ const fibonacciRecursive = function (num) {
   return fibonacciRecursive(num-1) + fibonacciRecursive(num-2)
 }
 
-// Valid Anagram
+// Valid Anagram 1
 
 const isAnagram = function (s,t) {
   s = s.split("").sort().join("")
@@ -154,7 +154,73 @@ const isAnagram = function (s,t) {
   return s === t
 }
 
-console.log(isAnagram("roca","cora"))
+// Valid Anagram 2
+
+const isAnagram2 = function (s,t) {
+  if(s.length !== t.length) return false
+
+  const obj1 = {}
+  const obj2 = {}
+
+  for (let i = 0; i < s.length; i++) {
+  
+    obj1[s[i]] = (obj1[s[i]] || 0) + 1
+    obj2[t[i]] = (obj2[t[i]] || 0) + 1
+
+  }
+  for (const key in obj1) {
+    if(obj1[key] !== obj2[key]) return false
+  }
+  return true
+
+}
+
+// Two Sum 1
+
+const sumTwoforce = function (arr,target) {
+  
+}
+
+// Two Sum 2
+
+const twoSum = function (arr,target) {
+  let obj={}
+
+  for(let i = 0; i< arr.length; i++){
+    let n = arr[i]
+    if(obj[target-n] >=0){
+      return [obj[target-n], i]
+    }else{
+      obj[n] = i
+    }
+  }
+}
+
+// Q5 Best time to buy and Sell stocks
+
+function maxProfit1(arr) {
+  let globalProfit = 0
+
+  for(let i = 0; i< arr.length-1; i++){
+    for(let j = i+1; j< arr.length; j++){
+      const currentProfit = arr[j] - arr[i]
+      if(currentProfit > globalProfit){
+        globalProfit = currentProfit
+      } 
+    }
+  }
+  return globalProfit
+
+}
+
+function maxProfit2(arr){
+  
+}
+
+
+
+
+
 
 
 
