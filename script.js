@@ -214,8 +214,23 @@ function maxProfit1(arr) {
 }
 
 function maxProfit2(arr){
-  
+
+  let minStockPrice = arr[0] || 0;
+  let profit = 0;
+
+  for (let i = 1; i < arr.length; i++) {
+    if(arr[i] < minStockPrice){
+      minStockPrice = arr[i]
+    }
+    profit = Math.max(profit, arr[i] - minStockPrice)
+  }
+
+  return profit
+
 }
+
+console.log(maxProfit2([7,3,1,6]))
+
 
 
 
