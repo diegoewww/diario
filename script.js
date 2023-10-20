@@ -119,117 +119,145 @@ const totalMarks = students.map(student =>{
   .reduce((acc,student)=> acc + student.marks,0)
 
 // PREPARACION PARA FAANG AHORA!
+// Ques 1 - Palindrome Number
+// An integer is a palindrome when it reads the same forward and backward.
 
+// Input: x = 121  ----->>>>>   Output: true
+// Input: x = 10   ----->>>>>   Output: false
+// console.log(isPalindrome(121));
 // Palindrome
 
 const isPalindrome = function (x) {
-  if(x<0) return false
-  return x === Number(x.toString().split("").reverse().join(""));
+  return  x < 0 ? false : x === Number(x.toString().split("").reverse().join(""))
 };
 
-// Fibonacci 
+
+
+// Ques 2 - Fibonacci Number
+// Fibonacci Series -> 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233...
+// F(0) = 0, F(1) = 1
+// F(n) = F(n - 1) + F(n - 2), for n > 1
+
+// Input: n = 3  ----->>>>>  Output: 2
 
 const fibonacci = function (num) {
   let arr = [0,1]
-  for(let i = 2; i <= num; i++){
-    arr.push(arr[i-1] + arr[i-2])
-  }
+    if(num>1){
+      for (let i = 2; i <= num; i++) {
+        arr.push(arr[i-2] + arr[i-1])
+      }
+
+    }
   return arr[num]
 }
+
 
 // Fibonacci  recursive
 
 const fibonacciRecursive = function (num) {
-  if(num <= 1) return num
 
-  return fibonacciRecursive(num-1) + fibonacciRecursive(num-2)
+  let arr = [0,1]
+  if(num>1){
+    return fibonacciRecursive(num-2) + fibonacciRecursive(num-1)
+  }
+
+  return arr[num]
+
 }
+
+
+// Ques 3 - Valid Anagram
+// An Anagram is a word or phrase formed by rearranging the letters of
+// a different word or phrase, using all the original letters exactly once.
+
+// Input: (s = "anagram"), (t = "nagaram"); ----->>>>>   Output: true;
+// Input: (s = "rat"), (t = "car");         ----->>>>>   Output: false;
 
 // Valid Anagram 1
 
-const isAnagram = function (s,t) {
+const isAnagram1 = function (s,t) {
   s = s.split("").sort().join("")
-  t= s.split("").sort().join("")
-  
+  t = t.split("").sort().join("")
+
   return s === t
 }
-
 // Valid Anagram 2
 
 const isAnagram2 = function (s,t) {
-  if(s.length !== t.length) return false
 
-  const obj1 = {}
-  const obj2 = {}
+  let obj1 = {}
+  let obj2 = {}
 
-  for (let i = 0; i < s.length; i++) {
-  
-    obj1[s[i]] = (obj1[s[i]] || 0) + 1
-    obj2[t[i]] = (obj2[t[i]] || 0) + 1
-
+  for(let i = 0; i<s.length; i++){
+    obj1[s[i]] = (obj1[s[i]] || 0 ) + 1
+    obj2[t[i]] = (obj2[t[i]] || 0 )  + 1
   }
+
   for (const key in obj1) {
-    if(obj1[key] !== obj2[key]) return false
+    if(obj1[key] != obj2[key]) return false
   }
+
   return true
 
 }
+// Ques 4 - Two Sum
+// Given an array of integers nums and an integer target,
+// return indices of the two numbers such that they add up to target.
 
-// Two Sum 1
+// Input: nums = [2,7,11,15], target = 9
+// Output: [0,1] (Because nums[0] + nums[1] == 9, we return [0, 1])
+// Input: nums = [3, 2, 4], target = 6
+// Output: [1, 2]
 
-const sumTwoforce = function (arr,target) {
-  
+
+// Brute Force Solution
+
+const twoSum1 = function (arr,target) {
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i+1 ; j < arr.length; j++) {
+      if(arr[i] + arr[j] === target){
+        return [i,j]
+      }
+    }
+  }
+  return []
 }
 
-// Two Sum 2
+// console.log(twoSum1([3, 2, 4], 6));
 
-const twoSum = function (arr,target) {
-  let obj={}
+// Using JS Objects
 
-  for(let i = 0; i< arr.length; i++){
+const twoSum2 = function (arr,target) {
+  let obj = {}
+
+  for (let i = 0; i < arr.length; i++) {
     let n = arr[i]
-    if(obj[target-n] >=0){
+
+    if(obj[target - n] >= 0){
       return [obj[target-n], i]
     }else{
       obj[n] = i
-    }
+    }  
   }
+  return []
 }
+
+console.log(twoSum2([3, 2, 4], 6));
 
 // Q5 Best time to buy and Sell stocks
 
 function maxProfit1(arr) {
-  let globalProfit = 0
 
-  for(let i = 0; i< arr.length-1; i++){
-    for(let j = i+1; j< arr.length; j++){
-      const currentProfit = arr[j] - arr[i]
-      if(currentProfit > globalProfit){
-        globalProfit = currentProfit
-      } 
-    }
-  }
-  return globalProfit
 
 }
 
 function maxProfit2(arr){
 
-  let minStockPrice = arr[0] || 0;
-  let profit = 0;
-
-  for (let i = 1; i < arr.length; i++) {
-    if(arr[i] < minStockPrice){
-      minStockPrice = arr[i]
-    }
-    profit = Math.max(profit, arr[i] - minStockPrice)
-  }
-
-  return profit
 
 }
 
-console.log(maxProfit2([7,3,1,6]))
+
 
 
 
