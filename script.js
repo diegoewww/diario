@@ -213,10 +213,9 @@ const isAnagram2 = function (s,t) {
 // Brute Force Solution
 
 const twoSum1 = function (arr,target) {
-
   for (let i = 0; i < arr.length; i++) {
-    for (let j = i+1 ; j < arr.length; j++) {
-      if(arr[i] + arr[j] === target){
+    for (let j = i+1; j < arr.length; j++) {
+      if(arr[i]+ arr[j] === target){
         return [i,j]
       }
     }
@@ -229,34 +228,63 @@ const twoSum1 = function (arr,target) {
 // Using JS Objects
 
 const twoSum2 = function (arr,target) {
-  let obj = {}
-
+  let obj ={}
   for (let i = 0; i < arr.length; i++) {
-    let n = arr[i]
-
-    if(obj[target - n] >= 0){
-      return [obj[target-n], i]
-    }else{
-      obj[n] = i
-    }  
+    if (obj[target - arr[i]] >=0) {
+      obj[arr[i]] = i
+      return [obj[target - arr[i]], i]
+    } else {
+      obj[arr[i]] = i
+    }
   }
   return []
 }
 
-console.log(twoSum2([3, 2, 4], 6));
+// console.log(twoSum2([3, 2, 4], 6));
 
-// Q5 Best time to buy and Sell stocks
+
+
+// Ques 5 - Best Time to Buy and Sell Stocks
+// You are given an array prices where prices[i] is the price of a given stock
+// on the ith day.
+// You want to maximize your profit by choosing a single day to buy one stock
+// and choosing a different day in the future to sell that stock.
+// Return the maximum profit, If you cannot achieve any profit, return 0.
+
+// Input: prices = [7, 1, 5, 3, 6, 4];  ----->>>>>  Output: 5;
+// Input: prices = [7, 6, 4, 3, 1];     ----->>>>>  Output: 0;
+
+// Brute Force Solution
 
 function maxProfit1(arr) {
-
-
+  let profitResultante = 0
+  for (let i = 0; i < arr.length-1 ; i++) {
+    for (let j = i+1; j < arr.length ; j++) {
+      const profitOperacional = arr[j] - arr[i]
+      if(profitOperacional > profitResultante) {
+        profitResultante = profitOperacional
+      }
+    }
+  }
+  return profitResultante
 }
+
+console.log(maxProfit1([7, 1, 5, 3, 6, 4]));
 
 function maxProfit2(arr){
+  let minimo = arr[0] || 0;
+  let profit = 0;
 
-
+  for (let i = 1; i < arr.length; i++) {
+    if(arr[i] < minimo){
+      minimo = arr[i]
+    }
+    profit = Math.max(profit, arr[i] - minimo)
+  }
+  return profit
 }
 
+console.log(maxProfit2([7, 1, 5, 3, 6, 4]));
 
 
 
