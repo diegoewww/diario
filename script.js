@@ -269,7 +269,6 @@ function maxProfit1(arr) {
   return profitResultante
 }
 
-console.log(maxProfit1([7, 1, 5, 3, 6, 4]));
 
 function maxProfit2(arr){
   let minimo = arr[0] || 0;
@@ -284,7 +283,115 @@ function maxProfit2(arr){
   return profit
 }
 
-console.log(maxProfit2([7, 1, 5, 3, 6, 4]));
+// 30 days javaScript
+
+function createCounterFun(init){
+  let counter = init
+
+  function add(){
+    return ++counter;
+  }
+
+  function decrement(){
+    return --counter
+  }
+
+  function reset(){
+    counter = init
+    return counter
+  }
+
+  return {
+    add,
+    decrement,
+    reset
+  }
+
+}
+
+class createCounter{
+  constructor(init){
+    this.init = init
+    this.counter = init
+  }
+
+  add(){
+    return ++this.counter
+  }
+  decrement(){
+    return --this.counter
+  }
+  reset(){
+    this.counter = this.init
+    return this.counter
+  }
+}
+
+class Adder {
+  constructor(a) {
+     this.a = a;
+  }
+
+  add(b) {
+    const sum = this.a + b;
+    return sum;
+  }
+}
+
+function createAdder(a) {
+  return function add(b) {
+    const sum = a + b;
+    return sum;      
+  }
+}
+
+// dinamic programing
+
+function memoize(fn) {
+  const cache ={}
+  return function(...args) {
+      let key = JSON.stringify(args)
+      if(key in cache){
+        return cache[key];
+      }
+      cache[key] = fn(...args)
+      console.log(cache)
+      return cache[key]
+  }
+}
+
+//  let callCount = 0;
+// const memoizedFn = memoize(function (a, b) {
+// 	 callCount += 1;
+//    return a + b;
+//  })
+//  memoizedFn(2, 3) // 5
+//  memoizedFn(2, 3) // 5
+//  console.log(callCount) // 1 
+
+const curry = function (fn) {
+  let nums = []
+  return function curried(...args) {
+      nums = [...nums,...args]
+      if(fn.length === nums.length ){
+        const res = fn(...nums)
+        nums = []
+        return res
+      }else{
+        return curried
+      }
+  }
+}
+
+function suma(a,b) { return a + b}
+
+const csum = curry(suma)
+
+// console.log(csum(1)(2));
+
+
+        
+
 
 
 
