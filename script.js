@@ -389,6 +389,79 @@ const csum = curry(suma)
 
 // console.log(csum(1)(2));
 
+// PROMISE
+
+var addTwoPromises = async function(promise1, promise2) {
+  r1 = await promise1;
+  r2 = await promise2;
+  return r1+r2
+};
+
+//sleep
+async function sleep(millis) {
+  await new Promise((resolve,reject)=>{
+    setTimeout(resolve,millis)
+  })
+}
+
+// calear las funciones uno depuses de otra 
+async function promisePool(functions,n){
+  let i = 0;
+
+  async function callback() {
+    if(i === functions.length){
+      return ;
+    }
+    await functions[i++]()
+    await callback()
+  }
+
+  const nPromise = Array(n).fill().map(callback)
+  await Promise.all(nPromise)
+}
+
+//timelimted cache
+
+class TimeLimitedCache {
+  cache = new Map();
+
+  set(key, value, duration) {
+      const alreadyExist = this.cache.get(key);
+      if (alreadyExist) {
+          clearTimeout(alreadyExist.timeoutId);
+      }
+      const timeoutId = setTimeout(() => {
+          this.cache.delete(key);
+      }, duration);
+
+      this.cache.set(key, { value, timeoutId });
+      return Boolean(alreadyExist);
+  }
+
+  get(key) {
+      if (this.cache.has(key))
+          return this.cache.get(key).value;
+      return -1;
+  }
+
+  count() {
+      return this.cache.size;
+  }
+}
+
+// blind 75
+
+const isDuplicate = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    for(let j = i+1 ; j< nums.length; j++){
+      if(nums[i] === nums[j]){
+        return true
+      }
+    }
+  }
+  return false
+}
+
 
         
 
