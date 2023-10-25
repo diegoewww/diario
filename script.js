@@ -68,14 +68,6 @@ const resultForEach = nums.forEach(num=>{
   return num+3
 })
 
-// console.log(multiplyTwo)
-// console.log(moreThanTwo)
-// console.log(sum)
-// console.log(nums)
-// console.log(resultMap)
-// console.log(nums)
-// console.log(resultForEach);
-
 const students = [
   {name:"Piyus", rollNumber:12, marks:80},
   {name:"Diego", rollNumber:10, marks:50},
@@ -118,7 +110,6 @@ const totalMarks = students.map(student =>{
 }).filter(student => student.marks >60)
   .reduce((acc,student)=> acc + student.marks,0)
 
-// PREPARACION PARA FAANG AHORA!
 // Ques 1 - Palindrome Number
 // An integer is a palindrome when it reads the same forward and backward.
 
@@ -240,10 +231,6 @@ const twoSum2 = function (arr,target) {
   return []
 }
 
-// console.log(twoSum2([3, 2, 4], 6));
-
-
-
 // Ques 5 - Best Time to Buy and Sell Stocks
 // You are given an array prices where prices[i] is the price of a given stock
 // on the ith day.
@@ -283,227 +270,11 @@ function maxProfit2(arr){
   return profit
 }
 
-// 30 days javaScript
 
-function createCounterFun(init){
-  let counter = init
 
-  function add(){
-    return ++counter;
-  }
 
-  function decrement(){
-    return --counter
-  }
 
-  function reset(){
-    counter = init
-    return counter
-  }
 
-  return {
-    add,
-    decrement,
-    reset
-  }
-
-}
-
-class createCounter{
-  constructor(init){
-    this.init = init
-    this.counter = init
-  }
-
-  add(){
-    return ++this.counter
-  }
-  decrement(){
-    return --this.counter
-  }
-  reset(){
-    this.counter = this.init
-    return this.counter
-  }
-}
-
-class Adder {
-  constructor(a) {
-     this.a = a;
-  }
-
-  add(b) {
-    const sum = this.a + b;
-    return sum;
-  }
-}
-
-function createAdder(a) {
-  return function add(b) {
-    const sum = a + b;
-    return sum;      
-  }
-}
-
-// dinamic programing
-
-function memoize(fn) {
-  const cache ={}
-  return function(...args) {
-      let key = JSON.stringify(args)
-      if(key in cache){
-        return cache[key];
-      }
-      cache[key] = fn(...args)
-      console.log(cache)
-      return cache[key]
-  }
-}
-
-//  let callCount = 0;
-// const memoizedFn = memoize(function (a, b) {
-// 	 callCount += 1;
-//    return a + b;
-//  })
-//  memoizedFn(2, 3) // 5
-//  memoizedFn(2, 3) // 5
-//  console.log(callCount) // 1 
-
-const curry = function (fn) {
-  let nums = []
-  return function curried(...args) {
-      nums = [...nums,...args]
-      if(fn.length === nums.length ){
-        const res = fn(...nums)
-        nums = []
-        return res
-      }else{
-        return curried
-      }
-  }
-}
-
-function suma(a,b) { return a + b}
-
-const csum = curry(suma)
-
-// console.log(csum(1)(2));
-
-// PROMISE
-
-var addTwoPromises = async function(promise1, promise2) {
-  r1 = await promise1;
-  r2 = await promise2;
-  return r1+r2
-};
-
-//sleep
-async function sleep(millis) {
-  await new Promise((resolve,reject)=>{
-    setTimeout(resolve,millis)
-  })
-}
-
-// calear las funciones uno depuses de otra 
-async function promisePool(functions,n){
-  let i = 0;
-
-  async function callback() {
-    if(i === functions.length){
-      return ;
-    }
-    await functions[i++]()
-    await callback()
-  }
-
-  const nPromise = Array(n).fill().map(callback)
-  await Promise.all(nPromise)
-}
-
-//timelimted cache
-
-class TimeLimitedCache {
-  cache = new Map();
-
-  set(key, value, duration) {
-      const alreadyExist = this.cache.get(key);
-      if (alreadyExist) {
-          clearTimeout(alreadyExist.timeoutId);
-      }
-      const timeoutId = setTimeout(() => {
-          this.cache.delete(key);
-      }, duration);
-
-      this.cache.set(key, { value, timeoutId });
-      return Boolean(alreadyExist);
-  }
-
-  get(key) {
-      if (this.cache.has(key))
-          return this.cache.get(key).value;
-      return -1;
-  }
-
-  count() {
-      return this.cache.size;
-  }
-}
-
-// blind 75 
-
-const isDuplicate1 = function (nums) {
-  for (let i = 0; i < nums.length; i++) {
-    for(let j = i+1 ; j< nums.length; j++){
-      if(nums[i] === nums[j]){
-        return true
-      }
-    }
-  }
-  return false
-}
-
-const isDuplicate2 = function (nums) {
-  
-  nums.sort(function(a, b){return a - b})
-
-  for(let i = 0; i<nums.length-1; i++){
-    if(nums[i] === nums[i+1]){
-      return true
-    }
-  }
-  return false
-
-}
-
-const isDuplicate3 = function (nums) {
-
-  let numsSet = new Set(nums)
-  let equal = numsSet.size === nums.length
-  return !equal
-  
-}
-
-const isDuplicate4 = function (nums, numsSet = new Set()) {
-  for(const num of nums){
-    if(numsSet.has(num)) return true
-    numsSet.add(num)
-  }
-  return false
-}
-
-const isDuplicate5 = function (nums) {
-  let cache = {}
-  for (let i = 0; i < nums.length; i++) {
-    if(cache[nums[i]] === nums[i]){
-      return true
-    }
-    cache[nums[i]] = nums[i]
-  }
-  return false
-  
-}
-
-console.log(isDuplicate5([1,2,3,1]));
 
 
         
